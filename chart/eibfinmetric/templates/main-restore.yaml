@@ -1,0 +1,32 @@
+{{- if .Values.db.main.restore.enabled }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "restore-main-db-job.fullname" . }}
+  namespace: {{ include "namespace" . }}
+  labels:
+    {{- include "risk.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": post-install,post-upgrade
+    "helm.sh/hook-weight": "-5"
+    "helm.sh/hook-delete-policy": hook-succeeded
+
+spec:
+  template:
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        image: {{ include "main.backup.image" . }}
+        imagePullPolicy: {{ .Values.db.main.restore.image.pullPolicy | default .Values.risk.default.image.pullPolicy }}
+        env:
+          - name: "url"
+            value: {{ include "mongo.connection.main.restore" . }}
+          - name: nsFrom
+            value: {{ .Values.db.main.name }}
+          - name: nsTo
+            value: {{ .Values.db.main.name }}
+          - name: db
+            value: main_db
+      restartPolicy: Never
+  backoffLimit: 1
+{{- end }}

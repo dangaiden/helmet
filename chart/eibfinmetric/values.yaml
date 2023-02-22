@@ -1,0 +1,157 @@
+# Default values for eibfinmetric.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+global:
+  init:
+    db:
+      image: mongo
+    cache:
+    mq:
+
+risk:
+  containerSecurityContext:
+    enabled: false
+  default:
+    ASPNETCORE_ENVIRONMENT: Production
+    APP_TARGET: Cloud
+    image:
+      registry: harbor.lux.eib.org
+      tag: "23-0116-0-0"
+      pullPolicy: Always
+  web:
+    application: "Eib Fin Metric"
+    check:
+      db: false
+    image:
+      repository: webclient
+    env:
+    - name: AUTH__TYPE
+      value: None
+    - name: AUTH__IsSuperUser
+      value: "true"
+    - name: Auth__ActiveDirectory__Domain
+      value: ""
+    resources:
+      requests:
+        cpu: 0.1
+        memory: 1Gi
+      limits:
+        memory: 4Gi
+        cpu: 1
+  calculation:
+    enabled: true
+    image:
+      repository: calculation-service
+    resources:
+      requests:
+        cpu: 0.1
+        memory: 1Gi
+      limits:
+        memory: 4Gi
+        cpu: 1
+  scenario-calculation:
+    enabled: true
+    image:
+      repository: scenario-calculation-service
+    resources:
+      requests:
+        cpu: 0.1
+        memory: 1Gi
+      limits:
+        memory: 16Gi
+        cpu: 4
+  import:
+    enabled: true
+    image:
+      repository: import-service
+    resources:
+      requests:
+        cpu: 0.1
+        memory: 1Gi
+      limits:
+        memory: 4Gi
+        cpu: 1
+
+db:
+  main:
+    name: Dev;Eib-v8;Main
+    restore:
+      enabled: false
+      image:
+        repository: main-db-restore
+        tag: "1.0.0"
+        pullPolicy: Always
+  staging:
+    name: EibFinMetric_Staging
+    restore:
+      enabled: false
+      image:
+        repository: staging-db-restore
+        tag: "1.0.0"
+        pullPolicy: Always
+
+mongodb:
+  serviceAccount:
+    create: false
+  useStatefulSet: true
+  architecture: standalone
+  metrics: 
+    enabled: false
+  auth:
+    enabled: false
+  persistence:
+    enabled: true
+    size: 200Gi
+  resources:
+    requests:
+      cpu: 2
+      memory: 10Gi
+  livenessProbe:
+    enabled: true
+  readinessProbe:
+    enabled: true
+
+redis:
+  architecture: standalone
+  auth:
+    enabled: false
+  sentinel:
+    enabled: false
+  serviceAccount:
+    create: false
+  rbac:
+    create: false
+  usePassword: false
+  metrics:
+    enabled: true  
+  master:
+    persistence:
+      enabled: false  
+    disableCommands:
+    resources:
+      requests:
+        memory: 1Gi
+        cpu: 0.1
+      limits:
+        memory: 2Gi
+        cpu: 1
+
+rabbitmq:
+  serviceAccount:
+    create: true
+  rbac:
+    create: true
+  metrics:
+   enabled: true    
+  auth:
+    username: user
+    password: PaSsw0rd
+    erlangCookie: eRlAngC00kie
+  resources:
+    requests:
+      memory: 1Gi
+      cpu: 0.1
+    limits:
+      memory: 2Gi
+      cpu: 1
