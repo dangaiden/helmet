@@ -1,0 +1,23 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.flexera.com: krm
+    app.kubernetes.io/name: flexera-krm
+    app.kubernetes.io/part-of: FNMS
+  name: flexera-krm-viewer
+rules:
+- apiGroups:
+  - agents.flexera.com
+  resources:
+  - krms
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - agents.flexera.com
+  resources:
+  - krms/status
+  verbs:
+  - get

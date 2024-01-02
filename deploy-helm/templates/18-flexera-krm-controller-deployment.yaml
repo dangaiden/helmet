@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.flexera.com: krm
+    app.kubernetes.io/name: flexera-krm
+    app.kubernetes.io/part-of: FNMS
+    krm.flexera.com/component: controller
+
+  name: krm-controller
+  namespace: flexera
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app.flexera.com: krm
+      app.kubernetes.io/name: flexera-krm
+      app.kubernetes.io/part-of: FNMS
+      krm.flexera.com/component: controller
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app.flexera.com: krm
+        app.kubernetes.io/name: flexera-krm
+        app.kubernetes.io/part-of: FNMS
+        krm.flexera.com/component: controller
+    spec:
+      containers:
+      - args:
+        - controller
+        env:
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.name
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        image: nexusdockerhosted.sys.ourtesco.com/flexera/kubernetes_agent_krm161:latest
+        imagePullPolicy: IfNotPresent
+        name: controller
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: svc-nexus-flexeraimagepull
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      serviceAccount: controller
+      serviceAccountName: controller
+      terminationGracePeriodSeconds: 30

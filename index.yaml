@@ -1,0 +1,23 @@
+apiVersion: v1
+entries:
+  crd-helm:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2023-11-16T15:23:48.370108+05:30"
+    description: A Helm chart for deploying Flexera CRD manifest
+    digest: 63fcd97fc99d6dddffa75c2a82061b7417e829f3bcbb95ab8a9e22e1c52fe012
+    name: crd-helm
+    urls:
+    - crd-helm-1.0.0.tgz
+    version: 1.0.0
+  deploy-helm:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2023-11-16T15:23:48.370669+05:30"
+    description: A Helm chart for deploying Flexera components
+    digest: 50439d0a640a1c4522f8585728006bb932be5e8ead9eb371e6474b4af73f72b6
+    name: deploy-helm
+    urls:
+    - deploy-helm/deploy-helm-1.0.0.tgz
+    version: 1.0.0
+generated: "2023-11-16T15:23:48.368102+05:30"

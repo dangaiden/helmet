@@ -1,0 +1,19 @@
+apiVersion: agents.flexera.com/v1
+kind: KRM
+metadata:
+  name: flexera-for-tks
+spec:
+  imagePullSecrets:
+    - name: my-secret1
+  monitor:
+    configPatch:
+      name: krm-config
+    beaconURL: https://sam.gtm.global.tesco.org
+    storage:
+      storageClassName: tanzu-storage-policy
+      resources:
+        requests:
+          storage: 15Gi
+    downloadFromBeacon: false
+  node:
+    privileged: false
