@@ -1,5 +1,0 @@
-# Default values for flexera-tks.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
-namespace:
-  name: "flexera"
