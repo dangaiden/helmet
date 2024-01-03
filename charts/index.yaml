@@ -3,21 +3,21 @@ entries:
   crd-helm:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2024-01-03T11:51:42.8795+01:00"
+    created: "2024-01-03T11:55:45.334807+01:00"
     description: A Helm chart for deploying Flexera CRD manifest
     digest: d561e79f86c62b19170f4edfb556534ca5cceafd31309f89a3e61049ee9406b2
     name: crd-helm
     urls:
-    - https://itgaiden.com/helmet/crd-helm-1.0.0.tgz
+    - https://itgaiden.com/helmet/charts/crd-helm-1.0.0.tgz
     version: 1.0.0
   deploy-helm:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2024-01-03T11:51:42.880774+01:00"
+    created: "2024-01-03T11:55:45.335837+01:00"
     description: A Helm chart for deploying Flexera components
     digest: 50439d0a640a1c4522f8585728006bb932be5e8ead9eb371e6474b4af73f72b6
     name: deploy-helm
     urls:
-    - https://itgaiden.com/helmet/deploy-helm-1.0.0.tgz
+    - https://itgaiden.com/helmet/charts/deploy-helm-1.0.0.tgz
     version: 1.0.0
-generated: "2024-01-03T11:51:42.876152+01:00"
+generated: "2024-01-03T11:55:45.331273+01:00"
